@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convert Your File Location</title>
+    <!-- <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="css/convert.css" />
+</head>
+
+<body>
+
+    <h1>Convert your file location</h1>
+
+    <table>
+
+        <tr>
+            <td>Original Mac Location</td>
+            <td colspan="3"><textarea name="macLocation" id="macLocation" placeholder="Enter Mac location here"
+                    rows="10" cols="50" required></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>New Windows Location</td>
+            <td colspan="3"><textarea name="windowsLocation" id="windowsLocation" rows="10" cols="50"
+                    readonly> </textarea>
+            </td>
+        </tr>
+
+        </td>
+        </tr>
+        <tr>
+            <td><button onclick="clearAll()">Clear</button></td>
+            <td colspan="2" />
+            <td>
+                <button type="button" onclick="submitLocation()">Convert</button>
+                <button type="button" onclick="copyText()" style="margin-left: 10px" id="copyButton">Copy New
+                    Location</button>
+            </td>
+
+        </tr>
+    </table>
+
+
+
+</body>
+
+<script src="scripts/convert.js"></script>
+
+</html>
