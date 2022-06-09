@@ -130,9 +130,14 @@
         console.log(testString);
         let newString = '';
 
-        if (testString.includes('smb:')) {
+        if (testString.includes(':')) {
 
-            newString = testString.substring('smb:'.length);
+            let splitString = testString.split(':');
+            console.log('this is splitString: ' + splitString);
+            console.log('this is type of splitString: ' + typeof splitString);
+            newString = splitString[1];
+            alert(`${splitString[0]}: will be removed from start of path`);
+
         } else if (testString.length === 0) {
 
             alert("You need to fill in a valid file path.");
@@ -141,7 +146,7 @@
             newString = testString;
         }
 
-        console.log(newString);
+        console.log('this is newString ' + newString);
 
 
         function stringContains(string) {
@@ -181,7 +186,8 @@
             document.getElementById("copyButton").style.display = "inline";
         } else {
             alert('Your file path is ok to use on windows!')
-            document.getElementById("windowsLocation").innerHTML = `${testString}`;
+            document.getElementById("windowsLocation").innerHTML = `${newString}`;
+            document.getElementById("copyButton").style.display = "inline";
         }
 
     }
