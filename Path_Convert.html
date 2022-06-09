@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convert Your File Location</title>
+
+    <style>
+        body,
+        h1,
+        p {
+            font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+        }
+
+        a.navbar-brand {
+            white-space: normal;
+            text-align: center;
+            word-break: break-all;
+        }
+
+
+        a {
+            color: #0366d6;
+        }
+
+        input {
+            margin: 2px;
+        }
+
+        label {
+            font-style: italic;
+            font-weight: bolder;
+        }
+
+        textarea {
+            margin: 2px;
+        }
+
+
+
+        html {
+            font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+            html {
+                font-size: 16px;
+            }
+        }
+
+
+        button.accept-policy {
+            font-size: 1rem;
+            line-height: inherit;
+        }
+
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        #copyButton {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Convert Your File Path</h1>
+    <p>This will convert a Mac file path to windows file path:</p>
+    <p> For example: <b> smb://production.ctv.ca/storage/CreativeAgency/QSCreative/Public/Delivery/Starz/</b>
+    </p>
+    <p> Converts to: <b> \\production.ctv.ca\storage\CreativeAgency\QSCreative\Public\Delivery\Starz\</b>
+    </p>
+    <table>
+
+        <tr>
+            <td>Original Mac File Path</td>
+            <td colspan="3"><textarea name="macLocation" id="macLocation"
+                    placeholder="Enter or paste Mac file path here" rows="10" cols="50" required></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>New Windows File Path</td>
+            <td colspan="3"><textarea name="windowsLocation" id="windowsLocation" rows="10" cols="50"
+                    readonly> </textarea>
+            </td>
+        </tr>
+
+        </td>
+        </tr>
+        <tr>
+            <td><button onclick="clearAll()">Clear</button></td>
+            <td colspan="2" />
+            <td>
+                <button type="button" onclick="submitLocation()">Convert</button>
+                <button type="button" onclick="copyText()" style="margin-left: 10px" id="copyButton">Copy New
+                    File Path to clipboard</button>
+            </td>
+
+        </tr>
+    </table>
+
+
+
+</body>
+
+<script>
+    // let testString = 'smb://production.ctv.ca/storage/CreativeAgency/QSCreative/Public/Delivery/Starz/ADR-51546 - Starz - OAP - Gaslit (Rolling Deadlines)/';
+
+    // let testString = '\\production.ctv.ca\storage\CreativeAgency\QSCreative\Public\To Design\HBO\HouseOfTheDragon HBO logo';
+
+
+    // let testString = 'smb://production.ctv.ca';
+    // var testString = "";
+
+    function submitLocation() {
+        let testString = "";
+        testString = document.getElementById("macLocation").value;
+        console.log(testString);
+        let newString = '';
+
+        if (testString.includes('smb:')) {
+
+            newString = testString.substring('smb:'.length);
+        } else if (testString.length === 0) {
+
+            alert("You need to fill in a valid file path.");
+            return false;
+        } else {
+            newString = testString;
+        }
+
+        console.log(newString);
+
+
+        function stringContains(string) {
+
+            if (string.includes('/') || string.includes('//') || string.includes('smb://')) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        let checkedString = stringContains(newString);
+
+        console.log(checkedString);
+
+        if (checkedString === true) {
+            alert('Your file path has to be altered!')
+            let arrayString = Array.from(newString);
+
+            console.log(arrayString);
+
+
+            for (let i = 0; i < arrayString.length; i++) {
+                if (arrayString[i] == `/`)
+                    arrayString[i] = '\\';
+            }
+            console.log(arrayString);
+
+            let formattedString = arrayString.join('');
+
+            console.log(formattedString);
+
+            console.log(`Use this location path instead for Windows: ${formattedString}`);
+
+            document.getElementById("windowsLocation").innerHTML = `${formattedString}`;
+            document.getElementById("copyButton").style.display = "inline";
+        } else {
+            alert('Your file path is ok to use on windows!')
+            document.getElementById("windowsLocation").innerHTML = `${testString}`;
+        }
+
+    }
+
+    function clearAll() {
+        document.getElementById("macLocation").value = '';
+        document.getElementById("windowsLocation").innerHTML = ``;
+        document.getElementById("copyButton").style.display = "none";
+    }
+
+
+    function copyText() {
+        /* Get the text field */
+        var copyText = document.getElementById("windowsLocation");
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        navigator.clipboard.writeText(copyText.value);
+
+        /* Alert the copied text */
+        alert("Copied the text to the clipboard: " + copyText.value);
+    }
+
+
+</script>
+
+</html>
