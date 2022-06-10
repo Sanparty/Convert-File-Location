@@ -71,7 +71,6 @@
         #copyButton {
             display: none;
         }
-
     </style>
 </head>
 
@@ -108,7 +107,7 @@
             <td><button onclick="clearAll()">Clear</button></td>
             <td colspan="2" />
             <td>
-                <button type="button" onclick="submitLocation()">Convert</button>
+                <button type="button" id="convertButton" onclick="submitLocation()">Convert</button>
                 <button type="button" onclick="copyText()" style="margin-left: 10px" id="copyButton">Copy Windows
                     File Path to clipboard</button>
             </td>
@@ -192,11 +191,13 @@
 
             document.getElementById("windowsLocation").innerHTML = `${formattedString}`;
             document.getElementById("copyButton").style.display = "inline";
+            document.getElementById("convertButton").style.display = "none";
         } else {
             let p = document.createElement("p");
             textDisplay.append('Your file path is ok to use on windows!', p);
             document.getElementById("windowsLocation").innerHTML = `${newString}`;
             document.getElementById("copyButton").style.display = "inline";
+            document.getElementById("convertButton").style.display = "none";
         }
 
     }
@@ -206,6 +207,7 @@
         document.getElementById("windowsLocation").innerHTML = ``;
         document.getElementById("copyButton").style.display = "none";
         document.getElementById("textDisplay").textContent = "";
+        document.getElementById("convertButton").style.display = "inline";
     }
 
 
